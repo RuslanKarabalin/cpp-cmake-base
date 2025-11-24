@@ -1,4 +1,4 @@
-project = flyingfrog
+project = cpp_cmake_base
 
 all: build exec
 
