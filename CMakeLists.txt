@@ -1,15 +1,23 @@
 cmake_minimum_required(VERSION 3.28)
-project(cpp_cmake_base VERSION 1.0.0 LANGUAGES CXX)
 
-set(CMAKE_CXX_COMPILER "/bin/g++-14")
+project(
+    cpp_cmake_base
+    VERSION 1.0.0
+    DESCRIPTION "C++ CMake template"
+    LANGUAGES CXX
+)
+
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_compile_options(-Wall -Wextra -Wpedantic -Werror)
-add_compile_options(-std=c++23)
+set(PROJECT_HEADERS_DIR ${PROJECT_SOURCE_DIR}/include)
+set(PROJECT_SOURCES_DIR ${PROJECT_SOURCE_DIR}/src)
 
-include_directories(${CMAKE_SOURCE_DIR}/include)
+file(GLOB_RECURSE SOURCES ${PROJECT_SOURCES_DIR}/*.cpp)
 
-add_executable(${PROJECT_NAME} src/main.cpp)
+add_executable(${PROJECT_NAME} ${SOURCES})
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_HEADERS_DIR})
+
+target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic -Werror)
